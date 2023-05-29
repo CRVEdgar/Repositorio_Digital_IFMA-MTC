@@ -1,5 +1,5 @@
 server:
-  port: 8100
+  port: 8200
 eureka:
   client:
     service-url:
@@ -14,10 +14,10 @@ eureka:
     leaseExpirationDurationInSeconds: 2
 spring:
   application:
-    name: academy-server
+    name: file-server
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/academy_server?useTimezone=true&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/file_server?useTimezone=true&serverTimezone=UTC
     username: postgres
     password: postgres
     jpa:
@@ -34,4 +34,5 @@ spring:
 #      password: headbangerpf27
 springdoc:
   api-docs:
-    path: academy-server/v3/api-docs
+    path: file-server/v3/api-docs
+

@@ -1,5 +1,5 @@
 server:
-  port: 8100
+  port: 8000
 eureka:
   client:
     service-url:
@@ -18,7 +18,7 @@ eureka:
 #    instances:
 #      default:
 #        limit-for-period: 2 #quantidade de requisicoes
-#        limit-refresh-period: 10s #tempo (dentro de 10s sera rlz apenas 2 requisições
+#        limit-refresh-period: 10s #tempo (dentro de 10s sera rlz apenas 2 requisiï¿½ï¿½es
 #  bulkhead:
 #    instances:
 #      default:
@@ -27,7 +27,7 @@ eureka:
 #    instances:
 #      foo-bar:
 #        max-attempts: 5 #quantidade de chamdas ao endpoint
-#        wait-duration: 1s #tempo de espera até tentar a proxima requisição
+#        wait-duration: 1s #tempo de espera atï¿½ tentar a proxima requisiï¿½ï¿½o
 #        enable-exponential-backoff: true #tempo exponencial para tentativa das requisicoes
 spring:
   application:

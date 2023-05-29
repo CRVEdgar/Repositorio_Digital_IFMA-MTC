@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "digital-library Endpoint") //LOCAL DE ACESSO - localhost:8100/swagger-ui.html
+@Tag(name = "digital-library Endpoint") //LOCAL DE ACESSO - localhost:8000/swagger-ui.html
 @RestController
 @RequestMapping(value = "digital-library")
 public class DigitalLibraryController {
 
-    final FileServerProxy fileServerProxy;
-    final ParticipanteProxy participanteProxy;
+    private final FileServerProxy fileServerProxy;
+    private final ParticipanteProxy participanteProxy;
 
     public DigitalLibraryController(FileServerProxy fileServerProxy, ParticipanteProxy participanteProxy) {
         this.fileServerProxy = fileServerProxy;
