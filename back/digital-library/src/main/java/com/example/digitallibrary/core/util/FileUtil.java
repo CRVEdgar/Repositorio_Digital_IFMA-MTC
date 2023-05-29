@@ -1,4 +1,4 @@
-package com.example.digitallibrary.core;
+package com.example.digitallibrary.core.util;
 
 import org.springframework.web.multipart.MultipartFile;
 

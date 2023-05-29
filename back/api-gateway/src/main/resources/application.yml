@@ -15,14 +15,18 @@ spring:
           #lower-case-service-id: true
       #          configurando o redirecionamento da rota do loadBalance
       routes:
-        - id: cambio-service
-          uri: lb://cambio-service
-          predicates:
-            - Path=/cambio-service/**
         - id: digital-library
           uri: lb://digital-library
           predicates:
             - Path=/digital-library/**
+        - id: academy-server
+          uri: lb://academy-server
+          predicates:
+            - Path=/academy-server/**
+        - id: file-server
+          uri: lb://file-server
+          predicates:
+            - Path=/file-server/**
         - id: openapi
           uri: lb://api-gateway
           predicates:

@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient(name = "academy-server")
 public interface ParticipanteProxy {
 
-    @PostMapping(value = "trello-service") //TODO sem barra
+    @PostMapping(value = "academy-server")
     void criarAutomaticCard(@RequestBody List<Participantes> participantesList);
 }
