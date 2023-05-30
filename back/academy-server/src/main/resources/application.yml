@@ -16,7 +16,7 @@ spring:
   application:
     name: academy-server
   datasource:
-    url: jdbc:postgresql://localhost:5432/academy
+    url: jdbc:postgresql://localhost:5432/academydb
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
