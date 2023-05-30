@@ -17,6 +17,7 @@ public class FileServerApplication {
     @PostConstruct
     public void init(){
         FileUtils.PATH_TO_FILES = "repositorio/fileSystem";
+        FileUtils.PATH_ROOT = System.getProperty("user.home")+"/";
         System.out.println("****** Diretorio Raiz gerado: " + FileUtils.gerarDiretorioRaiz());
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static com.example.fileserver.core.util.FileUtils.PATH_TO_FILES;
 
@@ -40,6 +41,13 @@ public class StoreServiceImpl implements StoreService {
             e.printStackTrace();
             throw new ServiceException("Erro: nao foi possivel armazenar o arquivo!");
         }
+
+    }
+
+    @Override
+    public Path load(String filename) throws ServiceException {
+
+        return FileUtils.getPath().resolve(filename);
 
     }
 }

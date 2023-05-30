@@ -8,11 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 @Component
 public class FileUtils {
 
     public static String PATH_TO_FILES;
+    public static String PATH_ROOT;
 
     public static String getFileMD5(InputStream inputStream){
         try {
@@ -36,5 +38,9 @@ public class FileUtils {
     public static boolean gerarDiretorioRaiz(){
         boolean ok = new java.io.File(System.getProperty("user.home"), PATH_TO_FILES).mkdirs();
         return ok;
+    }
+
+    public static Path getPath(){
+        return Path.of(PATH_ROOT+PATH_TO_FILES);
     }
 }

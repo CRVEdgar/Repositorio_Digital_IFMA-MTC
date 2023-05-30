@@ -7,6 +7,8 @@ import com.example.fileserver.domain.model.Arquivo;
 import com.example.fileserver.domain.repository.ArquivoRepository;
 import com.example.fileserver.domain.service.ArquivoService;
 import com.example.fileserver.domain.service.StoreService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,6 +73,26 @@ public class ArquivoServiceImpl implements ArquivoService {
         arquivoSalvo.setFileName(storeService.store(file));
 
         return arquivoRepository.save(arquivoSalvo);
+    }
+
+    @Override
+    public Resource loadAsResource(String identificador) throws ServiceException {
+
+        Arquivo arquivo = arquivoRepository.findByIdentificador(identificador).get();
+
+        if(arquivo==null || arquivo.getFileName().isEmpty()){
+            throw new ServiceException("ARQUIVO NAO ENCONTRADO - DADOS DE SOLICITAÇÃO INVALIDO");
+        }
+
+        try{
+            System.out.println("RESOUCE: " + new UrlResource( storeService.load(arquivo.getFileName()).toUri() ).getURL() );
+            return new UrlResource(
+                    storeService.load(arquivo.getFileName()).toUri()
+            );
+        }catch (Exception e){
+            throw new ServiceException("NÃO FOI POSSÍVEL LOCALIZAR O ARQUIVO");
+        }
+
     }
 
 
