@@ -2,22 +2,26 @@ package com.example.academyserver.domain.model;
 
 import com.example.academyserver.domain.model.enums.Departamento;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Docente {
+@Table(name = "docente")
+public class Docente implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "codigo")
     private String codigo;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "departamento")
     private Departamento departamento;
     private Boolean ativo = true;
 
