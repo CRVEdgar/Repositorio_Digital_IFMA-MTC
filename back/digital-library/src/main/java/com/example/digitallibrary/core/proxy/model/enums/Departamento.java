@@ -1,4 +1,4 @@
-package com.example.academyserver.domain.model.enums;
+package com.example.digitallibrary.core.proxy.model.enums;
 
 public enum Departamento {
     DECOMP(0, "Departamento Acadêmico de Computação"),

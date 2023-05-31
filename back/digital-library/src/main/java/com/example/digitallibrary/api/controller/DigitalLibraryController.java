@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "digital-library")
 public class DigitalLibraryController {
 
-    private final FileServerProxy fileServerProxy;
-    private final ParticipanteProxy participanteProxy;
-
-    public DigitalLibraryController(FileServerProxy fileServerProxy, ParticipanteProxy participanteProxy) {
-        this.fileServerProxy = fileServerProxy;
-        this.participanteProxy = participanteProxy;
-    }
+//    private final FileServerProxy fileServerProxy;
+//    private final ParticipanteProxy participanteProxy;
+//
+//    public DigitalLibraryController(FileServerProxy fileServerProxy, ParticipanteProxy participanteProxy) {
+//        this.fileServerProxy = fileServerProxy;
+//        this.participanteProxy = participanteProxy;
+//    }
 
 
     @Operation(summary = "busca um trabalho academico")

@@ -1,4 +1,111 @@
 package com.example.digitallibrary.domain.model;
 
+import com.example.digitallibrary.domain.model.enums.Area;
+
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "tabela_trabalho")
 public class TrabalhoAcademico {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "titulo", length = 100)
+    private String titulo;
+    @Column(name = "resumo", nullable = false)
+    private String resumo;
+    private String palavraChave;
+    private String ano;
+    private String autor;
+    private String orientador;
+    private Area area;
+
+    @OneToOne
+    private Arquivo arquivo;
+
+    @OneToMany(mappedBy = "trabalhoAcademico")
+    private Set<Membro> membros = new LinkedHashSet<>();
+
+    public TrabalhoAcademico() {
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public String getPalavraChave() {
+        return palavraChave;
+    }
+
+    public void setPalavraChave(String palavraChave) {
+        this.palavraChave = palavraChave;
+    }
+
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(String orientador) {
+        this.orientador = orientador;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Arquivo getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
+    }
+
+    public Set<Membro> getMembros() {
+        return membros;
+    }
+
+    public void setMembros(Set<Membro> membros) {
+        this.membros = membros;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

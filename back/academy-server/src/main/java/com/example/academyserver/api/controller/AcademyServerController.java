@@ -79,7 +79,7 @@ public class AcademyServerController {
     }
 
     @Operation(summary = "salva um novo registro de Docente")
-    @PostMapping(value = "/profesor")
+    @PostMapping(value = "/professor")
     @ResponseStatus(HttpStatus.CREATED)
     public Docente salvarAluno(@RequestBody Docente professor){
         return docenteService.save(professor);
