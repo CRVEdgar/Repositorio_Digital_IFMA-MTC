@@ -28,7 +28,13 @@ public class Membro {
     public Membro() {
     }
 
-//    public Long getId() {
+    public Membro(String codigo, String nome, VinculoType vinculoType) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.vinculoType = vinculoType;
+    }
+
+    //    public Long getId() {
 //        return id;
 //    }
 

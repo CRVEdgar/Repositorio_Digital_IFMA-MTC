@@ -1,5 +1,6 @@
 package com.example.digitallibrary.core.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,8 +10,12 @@ import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FileUtil {
+    public static final int LIMITE_MAX = 50000000; /** 50MB */
+    public static final String FORMATO_ACEITO = "pdf";
 
     public static String generateMD5Hash(MultipartFile file){
         try {
@@ -45,5 +50,44 @@ public class FileUtil {
         fileOutputStream.write(multipartFile.getBytes());
         fileOutputStream.close();
         return file;
+    }
+
+    public static String getFileExtension(MultipartFile multipartFile) {
+        String originalFilename = multipartFile.getOriginalFilename();
+        if (StringUtils.isNotEmpty(originalFilename)) {
+            int dotIndex = originalFilename.lastIndexOf('.');
+            if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                return originalFilename.substring(dotIndex + 1);
+            }
+        }
+        return null;
+    }
+
+    public static boolean existe(MultipartFile file){
+        if(!file.isEmpty() || file!=null){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean tamanhoPermitido(MultipartFile file){
+        if(file.getSize()<=LIMITE_MAX){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean extensaoValida(MultipartFile file){
+        if(getFileExtension(file).equals(FORMATO_ACEITO)){
+            return true;
+        }
+        return false;
+    }
+
+    public static String gerarIdentificador(String codigoAutor, String codigoOrientador){
+        LocalDateTime today = LocalDateTime.now();
+        return codigoAutor.concat("_")
+                .concat(codigoOrientador).concat("_")
+                .concat( String.valueOf(today) ).replace(':', '-' ).replace('.', 'N');
     }
 }

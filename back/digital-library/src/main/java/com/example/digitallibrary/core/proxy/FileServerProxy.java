@@ -10,10 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(name = "file-server") //endpoint do cliente/microserviço a ser acessado
 public interface FileServerProxy {
 
-    @GetMapping("/download/{identificador}")
+    @GetMapping("file-server/download/{identificador}")
     ResponseEntity<?> downloadArquivo(/*@RequestParam(value = "identificador")*/@PathVariable String identificador);
 
-    @PostMapping(value = "/upload{identificador}{titulo}")
+    @PostMapping(value = "file-server/upload{identificador}{titulo}")
     ResponseEntity<?> uploadArquivo(@RequestParam("file") MultipartFile file,
                                            @RequestParam(value = "identificador") String identificador,
                                            @RequestParam(value = "titulo") String titulo);
