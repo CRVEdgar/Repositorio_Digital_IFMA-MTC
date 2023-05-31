@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "tabela_trabalho")
+@Table(name = "trabalho")
 public class TrabalhoAcademico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +18,23 @@ public class TrabalhoAcademico {
     private String titulo;
     @Column(name = "resumo", nullable = false)
     private String resumo;
-    private String palavraChave;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "palavrasChave")
+    private Set<String> palavrasChave = new LinkedHashSet<>();
     private String ano;
     private String autor;
     private String orientador;
+    @Enumerated(EnumType.STRING)
     private Area area;
 
     @OneToOne
     private Arquivo arquivo;
 
-    @OneToMany(mappedBy = "trabalhoAcademico")
+//    @OneToMany(mappedBy = "trabalhoAcademico")
+//    @Embedded
+    @ElementCollection
+    @CollectionTable(name = "membros", joinColumns = @JoinColumn(name = "trabalho_id"),
+                    foreignKey = @ForeignKey(name = "membros_trabalho_fk"))
     private Set<Membro> membros = new LinkedHashSet<>();
 
     public TrabalhoAcademico() {
@@ -49,12 +56,12 @@ public class TrabalhoAcademico {
         this.resumo = resumo;
     }
 
-    public String getPalavraChave() {
-        return palavraChave;
+    public Set<String> getPalavraChave() {
+        return palavrasChave;
     }
 
     public void setPalavraChave(String palavraChave) {
-        this.palavraChave = palavraChave;
+        this.palavrasChave.add(palavraChave);
     }
 
     public String getAno() {

@@ -1,18 +1,18 @@
 package com.example.digitallibrary.core.proxy;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @FeignClient(name = "academy-server")
-@Component
 public interface ParticipanteProxy {
 
-//    @PostMapping(value = "academy-server")
-//    void criarAutomaticCard(@RequestBody List<Participantes> participantesList);
+    @GetMapping(value = "academy-server")
+    void buscarAluno(@RequestParam(value = "codigo") String codigo);
 
     /**TODO:
      * Buscar professor por codigo

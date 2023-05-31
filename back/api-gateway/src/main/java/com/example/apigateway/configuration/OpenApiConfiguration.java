@@ -40,15 +40,15 @@ public class OpenApiConfiguration {
     }
 
     /** pode ser feito em uma classe de configuração ou no yml*/
-    public RouteLocator gatewayRouter(RouteLocatorBuilder builder){
-        return builder.routes()
-                .route( p -> p.path("/get")
-                        .filters(f -> f
-                                .addRequestHeader("ff", "ff")
-                                .addRequestParameter("hh","hh"))
-                        .uri("httpbin.org:80"))
-                .route(p -> p.path("/URIENDEREÇO/**").uri("lb://cambio-service"))
-                .build();
-
-    }
+//    public RouteLocator gatewayRouter(RouteLocatorBuilder builder){
+//        return builder.routes()
+//                .route( p -> p.path("/get")
+//                        .filters(f -> f
+//                                .addRequestHeader("ff", "ff")
+//                                .addRequestParameter("hh","hh"))
+//                        .uri("httpbin.org:80"))
+//                .route(p -> p.path("/URIENDEREÇO/**").uri("lb://cambio-service"))
+//                .build();
+//
+//    }
 }

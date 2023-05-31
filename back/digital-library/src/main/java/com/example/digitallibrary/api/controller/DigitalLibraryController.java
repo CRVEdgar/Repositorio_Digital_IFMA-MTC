@@ -3,7 +3,6 @@ package com.example.digitallibrary.api.controller;
 import com.example.digitallibrary.api.DTO.response.TrabalhoAcademicoResponse;
 import com.example.digitallibrary.core.proxy.FileServerProxy;
 import com.example.digitallibrary.core.proxy.ParticipanteProxy;
-import com.example.digitallibrary.domain.model.TrabalhoAcademico;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "digital-library")
 public class DigitalLibraryController {
 
+
 //    private final FileServerProxy fileServerProxy;
+//
+//
 //    private final ParticipanteProxy participanteProxy;
 //
 //    public DigitalLibraryController(FileServerProxy fileServerProxy, ParticipanteProxy participanteProxy) {
