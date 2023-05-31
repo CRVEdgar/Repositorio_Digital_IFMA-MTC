@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 @Tag(name = "file-server Endpoint") //LOCAL DE ACESSO - localhost:8200/swagger-ui.html
 @RestController
@@ -26,10 +24,11 @@ public class FileServerController {
     }
 
     @Operation(summary = "Salva as informações do arquivo")
-    @PutMapping(value = "/upload/{identificador}/{titulo}")
+    @PostMapping(value = "/upload{identificador}{titulo}")
     public ResponseEntity<?> uploadArquivo(@RequestParam("file") MultipartFile file,
                                            @RequestParam(value = "identificador") String identificador,
                                            @RequestParam(value = "titulo") String titulo ){
+        System.out.println("INICIANDO UPLOAD");
         try{
             return new ResponseEntity<>(
                 arquivoService.save(file,
@@ -51,21 +50,12 @@ public class FileServerController {
         try{
 
             Resource file = arquivoService.loadAsResource(identificador);
-
-            String percentEncodedFileName = URLEncoder.encode(identificador, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-//            StringBuilder contentDispositionValue = new StringBuilder();
-//            contentDispositionValue.append("attachment; filename=")
-//                    .append(percentEncodedFileName)
-//                    .append(";")
-//                    .append("filename*=")
-//                    .append("utf-8''")
-//                    .append(percentEncodedFileName);
-//            contentDispositionValue.append(MediaType.APPLICATION_PDF_VALUE);
+            String nomeArquivo = identificador+".pdf";
 
             if (file.exists()) {
-                System.out.println("Arquivo localizado");
+                System.out.println("Arquivo localizado"); //TODO: remover
                 HttpHeaders headers = new HttpHeaders();
-                headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename());
+                headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + nomeArquivo);
                 headers.setContentType(MediaType.APPLICATION_PDF);
 
                 return ResponseEntity.ok()
@@ -74,7 +64,7 @@ public class FileServerController {
                         .contentType(MediaType.APPLICATION_PDF)
                         .body(file);
             } else {
-                System.out.println("Arquivo nao existe");
+                System.out.println("Arquivo nao existe"); //TODO: remover
                 return new ResponseEntity<>("Nao foi Possivel Localizar o Arquivo", HttpStatus.NOT_FOUND);
             }
 

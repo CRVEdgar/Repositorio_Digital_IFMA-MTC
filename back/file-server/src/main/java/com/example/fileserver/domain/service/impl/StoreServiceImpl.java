@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import static com.example.fileserver.core.util.FileUtils.PATH_TO_FILES;
+import static com.example.fileserver.core.util.FileUtils.getPath;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -31,7 +32,9 @@ public class StoreServiceImpl implements StoreService {
 
             // Definindo o caminho completo onde o arquivo será armazenado
 //            String filePath = "/caminho/do/diretorio/" + fileName;
-            String filePath = PATH_TO_FILES+fileName;
+//            String filePath = PATH_TO_FILES+fileName;
+            String filePath = getPath().toString()+"/"+fileName;
+            System.out.println("SERÁ TRANSFERIDO PARA: " +filePath);
 
             // Salvando o arquivo
             arquivo.transferTo(new File(filePath));

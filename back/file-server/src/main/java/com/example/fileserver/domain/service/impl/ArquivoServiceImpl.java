@@ -58,6 +58,13 @@ public class ArquivoServiceImpl implements ArquivoService {
     @Override
     public Arquivo save(MultipartFile file, String identificador, String titulo) {
 
+        if(!FileUtils.tamanhoPermitido(file)){
+            throw new ServiceException("TAMANHO DO ARQUIVO EXCEDE O LIMITE PERMITIDO");
+        }
+        if(!FileUtils.extensaoValida(file)){
+            throw new ServiceException("FORMATO DE ARQUIVO INVÁLIDO");
+        }
+
         Arquivo arquivoSalvo = new Arquivo();
 
         arquivoSalvo.setIdentificador(identificador);
@@ -78,13 +85,13 @@ public class ArquivoServiceImpl implements ArquivoService {
     @Override
     public Resource loadAsResource(String identificador) throws ServiceException {
 
-        Arquivo arquivo = arquivoRepository.findByIdentificador(identificador).get();
-
-        if(arquivo==null || arquivo.getFileName().isEmpty()){
-            throw new ServiceException("ARQUIVO NAO ENCONTRADO - DADOS DE SOLICITAÇÃO INVALIDO");
-        }
-
         try{
+            Arquivo arquivo = arquivoRepository.findByIdentificador(identificador).get();
+
+            if(arquivo==null || arquivo.getFileName().isEmpty()){
+                throw new ServiceException("ARQUIVO NAO ENCONTRADO - DADOS DE SOLICITAÇÃO INVALIDO");
+            }
+
             System.out.println("RESOUCE: " + new UrlResource( storeService.load(arquivo.getFileName()).toUri() ).getURL() );
             return new UrlResource(
                     storeService.load(arquivo.getFileName()).toUri()

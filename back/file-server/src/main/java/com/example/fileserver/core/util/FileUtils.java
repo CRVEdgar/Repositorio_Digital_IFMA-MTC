@@ -16,6 +16,9 @@ public class FileUtils {
     public static String PATH_TO_FILES;
     public static String PATH_ROOT;
 
+    public static final int LIMITE_MAX = 50000000; /** 50MB */
+    public static final String FORMATO_ACEITO = "pdf";
+
     public static String getFileMD5(InputStream inputStream){
         try {
             return DigestUtils.md5Hex(inputStream);
@@ -42,5 +45,19 @@ public class FileUtils {
 
     public static Path getPath(){
         return Path.of(PATH_ROOT+PATH_TO_FILES);
+    }
+
+    public static boolean tamanhoPermitido(MultipartFile file){
+        if(file.getSize()<=LIMITE_MAX){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean extensaoValida(MultipartFile file){
+        if(getFileExtension(file).equals(FORMATO_ACEITO)){
+            return true;
+        }
+        return false;
     }
 }
