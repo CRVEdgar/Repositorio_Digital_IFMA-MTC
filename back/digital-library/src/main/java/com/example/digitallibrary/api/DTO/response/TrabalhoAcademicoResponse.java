@@ -77,4 +77,40 @@ public class TrabalhoAcademicoResponse {
         return new TrabalhoAcademicoResponse(identificador, codAutor, nomeAutor, codOrientador, nomeOrientador,
                 titulo, resumo, area, ano);
     }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public String getCodAutor() {
+        return codAutor;
+    }
+
+    public String getNomeAutor() {
+        return nomeAutor;
+    }
+
+    public String getCodOrientador() {
+        return codOrientador;
+    }
+
+    public String getNomeOrientador() {
+        return nomeOrientador;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public int getAno() {
+        return ano;
+    }
 }

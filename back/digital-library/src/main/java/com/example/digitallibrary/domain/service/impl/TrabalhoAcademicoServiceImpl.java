@@ -136,7 +136,8 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
                 .andTitulo(trabalhoDomain.getTitulo())
                 .andResumo(trabalhoDomain.getResumo())
                 .andArea(trabalhoDomain.getArea().getArea())
-                .andAno(trabalhoDomain.getAno());
+                .andAno(trabalhoDomain.getAno())
+                .thatsAll();
         return response;
     }
 }
