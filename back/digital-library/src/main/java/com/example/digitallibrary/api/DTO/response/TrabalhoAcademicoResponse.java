@@ -9,6 +9,10 @@ public class TrabalhoAcademicoResponse {
     private String nomeAutor;
     private String codOrientador;
     private String nomeOrientador;
+    private String titulo;
+    private String resumo;
+    private String area;
+    private int ano;
 
 
     public TrabalhoAcademicoResponse(String identificador) {
@@ -35,16 +39,42 @@ public class TrabalhoAcademicoResponse {
         return this;
     }
 
-    public TrabalhoAcademicoResponse(String identificador, String codAutor, String nomeAutor, String codOrientador, String nomeOrientador) {
+    public TrabalhoAcademicoResponse andTitulo(String titulo) {
+        this.titulo = titulo;
+        return this;
+    }
+
+    public TrabalhoAcademicoResponse andResumo(String resumo) {
+        this.resumo = resumo;
+        return this;
+    }
+
+    public TrabalhoAcademicoResponse andArea(String area) {
+        this.area = area;
+        return this;
+    }
+
+    public TrabalhoAcademicoResponse andAno(int ano) {
+        this.ano = ano;
+        return this;
+    }
+
+    public TrabalhoAcademicoResponse(String identificador, String codAutor, String nomeAutor, String codOrientador,
+                                     String nomeOrientador, String titulo, String resumo, String area, int ano) {
         this.identificador = identificador;
         this.codAutor = codAutor;
         this.nomeAutor = nomeAutor;
         this.codOrientador = codOrientador;
         this.nomeOrientador = nomeOrientador;
+        this.titulo = titulo;
+        this.resumo = resumo;
+        this.area = area;
+        this.ano = ano;
     }
 
     /** return Object from Domain Model */
     public TrabalhoAcademicoResponse thatsAll() {
-        return new TrabalhoAcademicoResponse(identificador, codAutor, nomeAutor, codOrientador, nomeOrientador);
+        return new TrabalhoAcademicoResponse(identificador, codAutor, nomeAutor, codOrientador, nomeOrientador,
+                titulo, resumo, area, ano);
     }
 }

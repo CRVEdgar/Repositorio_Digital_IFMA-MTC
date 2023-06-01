@@ -1,5 +1,6 @@
 package com.example.digitallibrary.domain.service.impl;
 
+import com.example.digitallibrary.api.DTO.request.TrabalhoFilter;
 import com.example.digitallibrary.api.DTO.request.TrabalhoRequest;
 import com.example.digitallibrary.api.DTO.response.TrabalhoAcademicoResponse;
 import com.example.digitallibrary.core.exceptions.DomainException;
@@ -14,6 +15,10 @@ import com.example.digitallibrary.domain.service.MembroService;
 import com.example.digitallibrary.domain.service.TrabalhoAcademicoService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
@@ -68,6 +73,70 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
 
         /** Salvando as informações do Trabalho na base*/
         repository.save(trabalhoAcademico);
+
+        return toDTO(trabalhoAcademico);
+    }
+
+    @Override
+    public List<TrabalhoAcademicoResponse> buscarPorAno(int ano) throws DomainException{
+        List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
+
+        List<TrabalhoAcademico> trabalhosBD = repository.findByAno(ano);
+
+        for (TrabalhoAcademico trabalhoToDTO : trabalhosBD){
+            TrabalhoAcademicoResponse response = toDTO(trabalhoToDTO);
+
+            listaTrabalhos.add(response);
+        }
+
+        return listaTrabalhos;
+    }
+
+    @Override
+    public List<TrabalhoAcademicoResponse> buscarPorArea(String area) throws DomainException {
+        List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
+
+        Area areaEnum = Area.toEnum(area);
+
+        List<TrabalhoAcademico> trabalhosBD = repository.findByArea( areaEnum.toString() );
+
+        for (TrabalhoAcademico trabalhoToDTO : trabalhosBD){
+            TrabalhoAcademicoResponse response = toDTO(trabalhoToDTO);
+
+            listaTrabalhos.add(response);
+        }
+
+        return listaTrabalhos;
+    }
+
+    @Override
+    public List<TrabalhoAcademicoResponse> buscarTodos() throws DomainException {
+        List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
+
+        List<TrabalhoAcademico> trabalhosBD = repository.findAll( );
+
+        for (TrabalhoAcademico trabalhoToDTO : trabalhosBD){
+            TrabalhoAcademicoResponse response = toDTO(trabalhoToDTO);
+
+            listaTrabalhos.add(response);
+        }
+
+        return listaTrabalhos;
+    }
+
+    @Override
+    public List<TrabalhoAcademicoResponse> buscarFiltro(TrabalhoFilter filter) throws DomainException {
         return null;
+    }
+
+    private TrabalhoAcademicoResponse toDTO(TrabalhoAcademico trabalhoDomain){
+        TrabalhoAcademicoResponse response = new TrabalhoAcademicoResponse(trabalhoDomain.getArquivo().getIdentificador())
+                .andNomeAutor(trabalhoDomain.getAutor())
+                .andNomeOrientador(trabalhoDomain.getOrientador())
+                .andTitulo(trabalhoDomain.getTitulo())
+                .andResumo(trabalhoDomain.getResumo())
+                .andArea(trabalhoDomain.getArea().getArea())
+                .andAno(trabalhoDomain.getAno());
+        return response;
     }
 }
