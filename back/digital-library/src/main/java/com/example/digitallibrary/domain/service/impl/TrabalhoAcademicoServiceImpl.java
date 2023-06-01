@@ -7,10 +7,11 @@ import com.example.digitallibrary.core.util.FileUtil;
 import com.example.digitallibrary.domain.model.Arquivo;
 import com.example.digitallibrary.domain.model.Membro;
 import com.example.digitallibrary.domain.model.TrabalhoAcademico;
+import com.example.digitallibrary.domain.model.enums.Area;
+import com.example.digitallibrary.domain.repository.TrabalhoAcademicoRepository;
 import com.example.digitallibrary.domain.service.ArquivoService;
 import com.example.digitallibrary.domain.service.MembroService;
 import com.example.digitallibrary.domain.service.TrabalhoAcademicoService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,15 +20,18 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
 
     private final ArquivoService arquivoService;
     private final MembroService membroService;
+    private final TrabalhoAcademicoRepository repository;
 
-
-    public TrabalhoAcademicoServiceImpl(ArquivoService arquivoService, MembroService membroService) {
+    public TrabalhoAcademicoServiceImpl(ArquivoService arquivoService, MembroService membroService, TrabalhoAcademicoRepository repository) {
         this.arquivoService = arquivoService;
         this.membroService = membroService;
+        this.repository = repository;
     }
 
     @Override
     public TrabalhoAcademicoResponse salvar(TrabalhoRequest trabalhoRequest, MultipartFile file) throws DomainException{
+        TrabalhoAcademico trabalhoAcademico = new TrabalhoAcademico();
+        Arquivo arquivoSalvo = new Arquivo();
 
         if(!FileUtil.existe(file)){
             throw new DomainException("ARQUIVO NAO ENVIADO");
@@ -46,8 +50,24 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
         Membro orientador = membroService.buscarProfessor(trabalhoRequest.getCodOrientador());
 
         /** Enviando o arquivo para o servidor de arquivos*/
-        Arquivo arquivoSalvo = arquivoService.enviar(file, autor.getCodigo(), orientador.getCodigo(), trabalhoRequest.getTitulo() );
+        arquivoSalvo = arquivoService.enviar(file, autor.getCodigo(), orientador.getCodigo(), trabalhoRequest.getTitulo() );
 
+        trabalhoAcademico.setTitulo(trabalhoRequest.getTitulo());
+        trabalhoAcademico.setResumo(trabalhoRequest.getResumo());
+        for (String palavra: trabalhoRequest.getPalavrasChave()){
+            trabalhoAcademico.addPalavraChave(palavra);
+        }
+        trabalhoAcademico.setAno(trabalhoRequest.getAnoPublicacao());
+        trabalhoAcademico.setAutor(autor.getNome());
+        trabalhoAcademico.setOrientador(orientador.getNome());
+        trabalhoAcademico.setArea( Area.toEnum(trabalhoRequest.getArea()) );
+        trabalhoAcademico.setArquivo(arquivoSalvo);
+
+        /** Salvando as informações do Arquivo na base*/
+        arquivoService.save(arquivoSalvo);
+
+        /** Salvando as informações do Trabalho na base*/
+        repository.save(trabalhoAcademico);
         return null;
     }
 }

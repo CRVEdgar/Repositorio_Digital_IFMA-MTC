@@ -3,9 +3,12 @@ package com.example.digitallibrary.domain.service.impl;
 import com.example.digitallibrary.core.exceptions.DomainException;
 import com.example.digitallibrary.core.proxy.FileServerProxy;
 import com.example.digitallibrary.core.util.FileUtil;
+import com.example.digitallibrary.core.util.FunctionsUtils;
 import com.example.digitallibrary.domain.model.Arquivo;
 import com.example.digitallibrary.domain.repository.ArquivoRepository;
 import com.example.digitallibrary.domain.service.ArquivoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +25,22 @@ public class ArquivoServiceImpl implements ArquivoService {
 
 
     @Override
-    public Arquivo enviar(MultipartFile file, String codigoAutor, String codigoorientador, String titulo) throws DomainException {
+    public Arquivo enviar(MultipartFile file, String codigoAutor, String codigoOrientador, String titulo) throws DomainException {
 
-        String identificador = FileUtil.gerarIdentificador(codigoAutor, codigoorientador);
+        String identificador = FileUtil.gerarIdentificador(codigoAutor, codigoOrientador);
 
+        ResponseEntity<?> responseEntity = fileServerProxy.uploadArquivo(file, identificador, titulo);
 
-        return null;
+        Arquivo arquivoArmazenado = FunctionsUtils.conveteEmArquivo(responseEntity);
+
+        //TODO: verificar a estrutura de retorno do json e testar a converção
+        return arquivoArmazenado;
     }
+
+    @Override
+    public void save(Arquivo arquivoSalvo) throws DomainException {
+        arquivoRepository.save(arquivoSalvo);
+    }
+
+
 }

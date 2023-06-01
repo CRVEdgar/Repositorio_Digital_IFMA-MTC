@@ -21,9 +21,11 @@ public class TrabalhoAcademico {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "palavrasChave")
     private Set<String> palavrasChave = new LinkedHashSet<>();
-    private String ano;
+    private int ano;
     private String autor;
     private String orientador;
+
+
     @Enumerated(EnumType.STRING)
     private Area area;
 
@@ -60,15 +62,15 @@ public class TrabalhoAcademico {
         return palavrasChave;
     }
 
-    public void setPalavraChave(String palavraChave) {
+    public void addPalavraChave(String palavraChave) {
         this.palavrasChave.add(palavraChave);
     }
 
-    public String getAno() {
+    public int getAno() {
         return ano;
     }
 
-    public void setAno(String ano) {
+    public void setAno(int ano) {
         this.ano = ano;
     }
 

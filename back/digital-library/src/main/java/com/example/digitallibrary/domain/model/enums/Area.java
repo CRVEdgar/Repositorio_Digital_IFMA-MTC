@@ -1,5 +1,7 @@
 package com.example.digitallibrary.domain.model.enums;
 
+import com.example.digitallibrary.core.exceptions.DomainException;
+
 public enum Area {
 
     MATEMATICA(0, "Matematica, Calculo, Raciocínio Lógico"),
@@ -22,5 +24,14 @@ public enum Area {
 
     public String getArea() {
         return area;
+    }
+
+    public static Area toEnum(String area){
+        for (Area tipo: Area.values()){
+            if(area.equalsIgnoreCase(tipo.area)){
+                return tipo;
+            }
+        }
+        throw new DomainException("DESCRIÇÃO DA AREA DO TRABALHO INVALIDA");
     }
 }

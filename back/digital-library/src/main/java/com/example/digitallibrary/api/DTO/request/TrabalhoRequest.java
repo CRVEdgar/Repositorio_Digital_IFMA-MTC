@@ -1,10 +1,13 @@
 package com.example.digitallibrary.api.DTO.request;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import java.math.BigDecimal;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class TrabalhoRequest {
 
@@ -14,6 +17,9 @@ public class TrabalhoRequest {
     private String area;
     @NotBlank
     private String resumo;
+
+    @NotNull
+    private List<String> palavrasChave = new ArrayList<>();
     @NotNull
     @PositiveOrZero
     private int anoPublicacao;
@@ -35,6 +41,10 @@ public class TrabalhoRequest {
 
     public String getResumo() {
         return resumo;
+    }
+
+    public List<String> getPalavrasChave() {
+        return palavrasChave;
     }
 
     public int getAnoPublicacao() {
