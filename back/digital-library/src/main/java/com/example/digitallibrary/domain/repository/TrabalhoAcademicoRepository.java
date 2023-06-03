@@ -1,14 +1,16 @@
 package com.example.digitallibrary.domain.repository;
 
 import com.example.digitallibrary.domain.model.TrabalhoAcademico;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface TrabalhoAcademicoRepository  extends JpaRepository<TrabalhoAcademico, Long> {
+//public interface TrabalhoAcademicoRepository  extends JpaRepository<TrabalhoAcademico, Long>,
+//            TrabalhoAcademicoRepositoryCriteria, JpaSpecificationExecutor<TrabalhoAcademico> {
+    public interface TrabalhoAcademicoRepository  extends CustomJpaRepository<TrabalhoAcademico, Long>,
+        TrabalhoAcademicoRepositoryQueries, JpaSpecificationExecutor<TrabalhoAcademico> {
 
     List<TrabalhoAcademico> findByAno(int ano);
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "trabalho")
+//@Table(name = "trabalho")
 public class TrabalhoAcademico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,10 @@ public class TrabalhoAcademico {
     private String titulo;
     @Column(name = "resumo", nullable = false)
     private String resumo;
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "palavrasChave")
-    private Set<String> palavrasChave = new LinkedHashSet<>();
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "palavrasChave")
+//    private Set<String> palavrasChave = new LinkedHashSet<>();
+    private String palavrasChave;
     private int ano;
     private String autor;
     private String orientador;
@@ -35,8 +36,8 @@ public class TrabalhoAcademico {
 //    @OneToMany(mappedBy = "trabalhoAcademico")
 //    @Embedded
     @ElementCollection
-    @CollectionTable(name = "membros", joinColumns = @JoinColumn(name = "trabalho_id"),
-                    foreignKey = @ForeignKey(name = "membros_trabalho_fk"))
+//    @CollectionTable(name = "membros", joinColumns = @JoinColumn(name = /*"trabalho_id"*/"trabalho_academico_id"),
+//                    foreignKey = @ForeignKey(name = /*"membros_trabalho_fk"*/"membros_trabalho_academico_fk"))
     private Set<Membro> membros = new LinkedHashSet<>();
 
     public TrabalhoAcademico() {
@@ -58,13 +59,20 @@ public class TrabalhoAcademico {
         this.resumo = resumo;
     }
 
-    public Set<String> getPalavraChave() {
+    public String getPalavrasChave() {
         return palavrasChave;
     }
 
-    public void addPalavraChave(String palavraChave) {
-        this.palavrasChave.add(palavraChave);
+    public void setPalavrasChave(String palavrasChave) {
+        this.palavrasChave = palavrasChave;
     }
+    //    public Set<String> getPalavraChave() {
+//        return palavrasChave;
+//    }
+//
+//    public void addPalavraChave(String palavraChave) {
+//        this.palavrasChave.add(palavraChave);
+//    }
 
     public int getAno() {
         return ano;

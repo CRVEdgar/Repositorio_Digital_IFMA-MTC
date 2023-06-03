@@ -18,8 +18,10 @@ public class TrabalhoRequest {
     @NotBlank
     private String resumo;
 
-    @NotNull
-    private List<String> palavrasChave = new ArrayList<>();
+//    @NotNull
+//    private List<String> palavrasChave = new ArrayList<>();
+    @NotBlank
+    private String palavrasChave;
     @NotNull
     @PositiveOrZero
     private int anoPublicacao;
@@ -43,9 +45,12 @@ public class TrabalhoRequest {
         return resumo;
     }
 
-    public List<String> getPalavrasChave() {
+    public String getPalavrasChave() {
         return palavrasChave;
     }
+//    public List<String> getPalavrasChave() {
+//        return palavrasChave;
+//    }
 
     public int getAnoPublicacao() {
         return anoPublicacao;

@@ -16,9 +16,7 @@ import com.example.digitallibrary.domain.service.TrabalhoAcademicoService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
@@ -59,9 +57,10 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
 
         trabalhoAcademico.setTitulo(trabalhoRequest.getTitulo());
         trabalhoAcademico.setResumo(trabalhoRequest.getResumo());
-        for (String palavra: trabalhoRequest.getPalavrasChave()){
-            trabalhoAcademico.addPalavraChave(palavra);
-        }
+        trabalhoAcademico.setPalavrasChave(trabalhoRequest.getPalavrasChave());
+//        for (String palavra: trabalhoRequest.getPalavrasChave()){
+//            trabalhoAcademico.addPalavraChave(palavra);
+//        }
         trabalhoAcademico.setAno(trabalhoRequest.getAnoPublicacao());
         trabalhoAcademico.setAutor(autor.getNome());
         trabalhoAcademico.setOrientador(orientador.getNome());
@@ -126,7 +125,17 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
 
     @Override
     public List<TrabalhoAcademicoResponse> buscarFiltro(TrabalhoFilter filter) throws DomainException {
-        return null;
+        List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
+
+        List<TrabalhoAcademico> trabalhosFiltrados = repository.especificationTextoDesejado(filter.getTextoInformado());
+
+        for (TrabalhoAcademico trabalhoToDTO : trabalhosFiltrados){
+            TrabalhoAcademicoResponse response = toDTO(trabalhoToDTO);
+
+            listaTrabalhos.add(response);
+        }
+
+        return listaTrabalhos;
     }
 
     private TrabalhoAcademicoResponse toDTO(TrabalhoAcademico trabalhoDomain){

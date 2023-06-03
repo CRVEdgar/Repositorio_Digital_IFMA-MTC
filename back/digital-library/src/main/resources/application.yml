@@ -41,6 +41,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
+#  data:
+#    elasticsearch:
+#      cluster-nodes: localhost:9200
 #    flyway:
 #      url: jdbc:postgresql://localhost:5432/
 #      schemas: book_service
