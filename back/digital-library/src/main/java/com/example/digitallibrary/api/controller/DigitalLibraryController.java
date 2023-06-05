@@ -2,8 +2,7 @@ package com.example.digitallibrary.api.controller;
 
 import com.example.digitallibrary.api.DTO.request.TrabalhoFilter;
 import com.example.digitallibrary.api.DTO.request.TrabalhoRequest;
-import com.example.digitallibrary.api.DTO.response.TrabalhoAcademicoResponse;
-import com.example.digitallibrary.domain.model.enums.Area;
+import com.example.digitallibrary.core.exceptions.DomainException;
 import com.example.digitallibrary.domain.service.TrabalhoAcademicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Tag(name = "digital-library Endpoint") //LOCAL DE ACESSO - localhost:8000/swagger-ui.html
 @RestController
@@ -26,6 +22,32 @@ public class DigitalLibraryController {
 
     public DigitalLibraryController(TrabalhoAcademicoService trabalhoAcademicoService) {
         this.trabalhoAcademicoService = trabalhoAcademicoService;
+    }
+
+    @PostMapping(value = "/endpointteste")
+    public ResponseEntity<?> salvarTESTE(@RequestParam("file") MultipartFile file,
+                                         @RequestParam(value = "codAluno") String codAluno,
+                                         @RequestParam(value = "codProfessor") String codProfessor){
+        TrabalhoRequest trabalhoRequest = new TrabalhoRequest("Titulo 1", "Tecnologia, Ciencia de Dados, Inteligencia Artificial",
+                "Resumo qualuer", "repositorio, framework, spring boot, react", 2023, codAluno, codProfessor);
+//        TrabalhoRequest(String titulo, String area, String resumo, String palavrasChave, int anoPublicacao, String codAutor, String codOrientador)
+
+        try{
+            if (file.isEmpty()) {
+                throw new DomainException("Erro: arquivo vazio!");
+            }
+
+//            copyToFileSystemTmp(file);
+
+
+
+            return new ResponseEntity<>(
+                    trabalhoAcademicoService.salvar(trabalhoRequest, file),
+                    HttpStatus.CREATED
+            );
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @Operation(summary = "Salva um novo Trabalho Academico")

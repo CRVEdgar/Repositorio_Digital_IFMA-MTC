@@ -1,5 +1,6 @@
 package com.example.fileserver.domain.service;
 
+import com.example.fileserver.api.DTO.ArquivoResponse;
 import com.example.fileserver.core.exceptions.ServiceException;
 import com.example.fileserver.domain.model.Arquivo;
 import org.springframework.core.io.Resource;
@@ -14,7 +15,7 @@ public interface ArquivoService {
     Arquivo findByfileName(String filename);
     Arquivo findByHashMd5(String hash);
     List<Arquivo> findAll();
-    Arquivo save(MultipartFile file, String identificador, String titulo);
+    ArquivoResponse save(MultipartFile file, String identificador, String titulo);
 
     Resource loadAsResource(String identificador) throws ServiceException;
 }

@@ -33,6 +33,16 @@ public class TrabalhoRequest {
     public TrabalhoRequest() {
     }
 
+    public TrabalhoRequest(String titulo, String area, String resumo, String palavrasChave, int anoPublicacao, String codAutor, String codOrientador) {
+        this.titulo = titulo;
+        this.area = area;
+        this.resumo = resumo;
+        this.palavrasChave = palavrasChave;
+        this.anoPublicacao = anoPublicacao;
+        this.codAutor = codAutor;
+        this.codOrientador = codOrientador;
+    }
+
     public String getTitulo() {
         return titulo;
     }

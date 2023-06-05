@@ -55,7 +55,7 @@ public class FileUtils {
     }
 
     public static boolean extensaoValida(MultipartFile file){
-        if(getFileExtension(file).equals(FORMATO_ACEITO)){
+        if(getFileExtension(file).equalsIgnoreCase(FORMATO_ACEITO)){
             return true;
         }
         return false;

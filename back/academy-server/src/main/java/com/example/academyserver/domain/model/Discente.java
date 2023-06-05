@@ -21,6 +21,7 @@ public class Discente implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Column(name = "curso")
+    @Enumerated(EnumType.STRING)
     private Curso curso;
     private Boolean ativo = true;
 

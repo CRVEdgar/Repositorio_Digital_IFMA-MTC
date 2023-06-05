@@ -6,18 +6,19 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @FeignClient(name = "academy-server")
 public interface ParticipanteProxy {
 
-    @GetMapping(value = "academy-server/aluno/codigo/{codigo}")
+//    @GetMapping(value = "academy-server/aluno/codigo/{codigo}")
+    @GetMapping(value = "academy-server/aluno/codigo{codigoAluno}")
     @ResponseStatus(HttpStatus.OK)
-    public Discente buscarAlunoCod(@PathVariable("codigo") String codigoAluno);
+    public Discente buscarAlunoCod(/*@PathVariable("codigo")*/@RequestParam(value = "codigoAluno") String codigoAluno);
 
-    @GetMapping(value = "academy-server/professor/codigo/{codigo}")
+//    @GetMapping(value = "academy-server/professor/codigo/{codigo}")
+    @GetMapping(value = "academy-server/professor/codigo{codigoProfessor}")
     @ResponseStatus(HttpStatus.OK)
-    public Docente buscarProfessorCod(@PathVariable("codigo") String codigoProfessor);
+    public Docente buscarProfessorCod(/*@PathVariable("codigo")*/@RequestParam(value = "codigoProfessor") String codigoProfessor);
 
     /**TODO:
      * retornar um ResponseEntity

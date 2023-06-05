@@ -49,11 +49,23 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
 
         /** Buscar pelo autor*/
         Membro autor = membroService.buscarAluno(trabalhoRequest.getCodAutor());
+        if(autor!=null){
+            System.out.println("LOCALIZOU O ALUNO: " + autor.getNome());
+        }
         /** Buscar pelo Orintador*/
         Membro orientador = membroService.buscarProfessor(trabalhoRequest.getCodOrientador());
+        if(orientador!=null){
+            System.out.println("LOCALIZOU O PROFESSOR: " + orientador.getNome());
+        }
+
 
         /** Enviando o arquivo para o servidor de arquivos*/
-        arquivoSalvo = arquivoService.enviar(file, autor.getCodigo(), orientador.getCodigo(), trabalhoRequest.getTitulo() );
+        try{
+            arquivoSalvo = arquivoService.enviar(file, autor.getCodigo(), orientador.getCodigo(), trabalhoRequest.getTitulo() );
+
+        }catch (Exception e){
+            throw new DomainException("NÃO FOI POSSÍVEL SALVAR ARQUIVO NA BASE DE DADOS - TENTE NOVAMENTE EM INSTANTES");
+        }
 
         trabalhoAcademico.setTitulo(trabalhoRequest.getTitulo());
         trabalhoAcademico.setResumo(trabalhoRequest.getResumo());

@@ -1,5 +1,6 @@
 package com.example.digitallibrary.core.util;
 
+import com.example.digitallibrary.api.DTO.request.ArquivoRequest;
 import com.example.digitallibrary.core.exceptions.DomainException;
 import com.example.digitallibrary.domain.model.Arquivo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,6 +44,34 @@ public class FunctionsUtils {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static  Arquivo convertArquivoMapper(ResponseEntity<?> responseEntity){
+        ObjectMapper objectMapper = new ObjectMapper();
+        String responsyBody = responseEntity.getBody().toString();
+
+        try {
+            Arquivo arquivo = objectMapper.readValue(responseEntity.getBody().toString(), Arquivo.class);
+            return arquivo;
+        } catch (JsonProcessingException e) {
+            throw new DomainException("ERRO AO DESSERIALIZAR ARQUIVO");
+        }
+    }
+
+    public static Arquivo conveteEmArquivoInstaceOf(ResponseEntity<?> responseEntity) {
+        Object responseBody = responseEntity.getBody();
+        Arquivo arquivo = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+        if (responseBody instanceof ArquivoRequest) {
+            arquivo = new Arquivo(arquivo.getIdentificador(), arquivo.getTitulo(), arquivo.getFileName());
+            return arquivo;
+        } else {
+
+            responseEntity.toString();
+            throw new DomainException("ERRO AO DESSERIALIZAR ARQUIVO");
+        }
     }
 
 }

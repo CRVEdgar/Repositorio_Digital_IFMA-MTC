@@ -1,6 +1,5 @@
 package com.example.digitallibrary.core.proxy;
 
-import com.example.digitallibrary.domain.model.Arquivo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,9 @@ public interface FileServerProxy {
     @GetMapping("file-server/download/{identificador}")
     ResponseEntity<?> downloadArquivo(/*@RequestParam(value = "identificador")*/@PathVariable String identificador);
 
-    @PostMapping(value = "file-server/upload{identificador}{titulo}")
-    ResponseEntity<?> uploadArquivo(@RequestParam("file") MultipartFile file,
-                                           @RequestParam(value = "identificador") String identificador,
-                                           @RequestParam(value = "titulo") String titulo);
+    @PostMapping(value = "file-server/upload{identificador}{titulo}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<?> uploadArquivo(@RequestPart("file") MultipartFile file,
+                                           @RequestPart(value = "identificador") String identificador,
+                                           @RequestPart(value = "titulo") String titulo);
 
 }

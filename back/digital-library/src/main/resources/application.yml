@@ -40,7 +40,14 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+#feign:
+#  encoder:
+#    charset-from-content-type: true
 #  data:
 #    elasticsearch:
 #      cluster-nodes: localhost:9200

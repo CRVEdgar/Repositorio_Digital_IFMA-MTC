@@ -22,6 +22,7 @@ public class Docente implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Column(name = "departamento")
+    @Enumerated(EnumType.STRING)
     private Departamento departamento;
     private Boolean ativo = true;
 

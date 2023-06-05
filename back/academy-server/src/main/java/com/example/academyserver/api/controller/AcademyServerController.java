@@ -25,9 +25,9 @@ public class AcademyServerController {
     }
 
     @Operation(summary = "busca um Discente pelo codigo")
-    @GetMapping(value = "/aluno/codigo/{codigo}")
+    @GetMapping(value = "/aluno/codigo{codigoAluno}")
     @ResponseStatus(HttpStatus.OK)
-    public Discente buscarAlunoCod(@PathVariable("codigo") String codigoAluno){
+    public Discente buscarAlunoCod(/*@PathVariable("codigo") String codigoAluno*/@RequestParam(value = "codigoAluno") String codigoAluno){
 
        return discenteService.findByCodigo(codigoAluno);
     }
@@ -56,9 +56,9 @@ public class AcademyServerController {
 
     /** docente endpoint*/
     @Operation(summary = "busca um Docente pelo codigo")
-    @GetMapping(value = "/professor/codigo/{codigo}")
+    @GetMapping(value = "/professor/codigo{codigoProfessor}")
     @ResponseStatus(HttpStatus.OK)
-    public Docente buscarProfessorCod(@PathVariable("codigo") String codigoProfessor){
+    public Docente buscarProfessorCod(/*@PathVariable("codigo")*/@RequestParam(value = "codigoProfessor") String codigoProfessor){
 
         return docenteService.findByCodigo(codigoProfessor);
     }
@@ -81,7 +81,7 @@ public class AcademyServerController {
     @Operation(summary = "salva um novo registro de Docente")
     @PostMapping(value = "/professor")
     @ResponseStatus(HttpStatus.CREATED)
-    public Docente salvarAluno(@RequestBody Docente professor){
+    public Docente salvarProfessor(@RequestBody Docente professor){
         return docenteService.save(professor);
     }
 

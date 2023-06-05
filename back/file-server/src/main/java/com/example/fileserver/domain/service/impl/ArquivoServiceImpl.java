@@ -1,5 +1,6 @@
 package com.example.fileserver.domain.service.impl;
 
+import com.example.fileserver.api.DTO.ArquivoResponse;
 import com.example.fileserver.core.exceptions.ArquivoNaoEncontradoException;
 import com.example.fileserver.core.exceptions.ServiceException;
 import com.example.fileserver.core.util.FileUtils;
@@ -56,7 +57,7 @@ public class ArquivoServiceImpl implements ArquivoService {
     }
 
     @Override
-    public Arquivo save(MultipartFile file, String identificador, String titulo) {
+    public ArquivoResponse save(MultipartFile file, String identificador, String titulo) {
 
         if(!FileUtils.tamanhoPermitido(file)){
             throw new ServiceException("TAMANHO DO ARQUIVO EXCEDE O LIMITE PERMITIDO");
@@ -79,7 +80,7 @@ public class ArquivoServiceImpl implements ArquivoService {
         /** Salva o arquivo no FileSystem */
         arquivoSalvo.setFileName(storeService.store(file));
 
-        return arquivoRepository.save(arquivoSalvo);
+        return toDTO(arquivoRepository.save(arquivoSalvo));
     }
 
     @Override
@@ -100,6 +101,10 @@ public class ArquivoServiceImpl implements ArquivoService {
             throw new ServiceException("NÃO FOI POSSÍVEL LOCALIZAR O ARQUIVO");
         }
 
+    }
+
+    private ArquivoResponse toDTO(Arquivo domain){
+        return new ArquivoResponse(domain.getIdentificador(), domain.getTitulo(), domain.getFileName());
     }
 
 
