@@ -1,12 +1,16 @@
 package com.example.digitallibrary.api.DTO.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
-public class ArquivoRequest implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class ArquivoRequest /*implements Serializable*/ {
+//    private static final long serialVersionUID = 1L;
+    @JsonProperty("identificador")
     private String identificador;
+    @JsonProperty("titulo")
     private String titulo;
+    @JsonProperty("fileName")
     private String fileName;
 
     public ArquivoRequest() {

@@ -63,9 +63,10 @@ public class FunctionsUtils {
         Arquivo arquivo = null;
         ObjectMapper objectMapper = new ObjectMapper();
 
-
         if (responseBody instanceof ArquivoRequest) {
-            arquivo = new Arquivo(arquivo.getIdentificador(), arquivo.getTitulo(), arquivo.getFileName());
+            ArquivoRequest rq = (ArquivoRequest) responseBody;
+
+            arquivo = new Arquivo(rq.getIdentificador(), rq.getTitulo(), rq.getFileName());
             return arquivo;
         } else {
 

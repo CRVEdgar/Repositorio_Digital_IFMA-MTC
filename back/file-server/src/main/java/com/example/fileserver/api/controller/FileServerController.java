@@ -1,5 +1,6 @@
 package com.example.fileserver.api.controller;
 
+import com.example.fileserver.api.DTO.ArquivoResponse;
 import com.example.fileserver.domain.service.ArquivoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,9 +26,9 @@ public class FileServerController {
 
     @Operation(summary = "Salva as informações do arquivo")
     @PostMapping(value = "/upload{identificador}{titulo}")
-    public ResponseEntity<?> uploadArquivo(@RequestParam("file") MultipartFile file,
-                                           @RequestParam(value = "identificador") String identificador,
-                                           @RequestParam(value = "titulo") String titulo ){
+    public ResponseEntity<ArquivoResponse> uploadArquivo(@RequestParam("file") MultipartFile file,
+                                                         @RequestParam(value = "identificador") String identificador,
+                                                         @RequestParam(value = "titulo") String titulo ){
         System.out.println("INICIANDO UPLOAD");
         try{
             return new ResponseEntity<>(
@@ -37,7 +38,7 @@ public class FileServerController {
                     HttpStatus.CREATED
             ) ;
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
     }

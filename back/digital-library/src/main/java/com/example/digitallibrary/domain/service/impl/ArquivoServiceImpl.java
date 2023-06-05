@@ -31,12 +31,11 @@ public class ArquivoServiceImpl implements ArquivoService {
 
         try {
 
-            ResponseEntity<?> responseEntityFE = fileServerProxy.uploadArquivo(file, identificador, titulo);
-            System.out.println("---> RESPONSE_ENTITY: " + responseEntityFE);
-            System.out.println("---> R.E TO String: " + responseEntityFE.getBody());
-            Arquivo arquivoArmazenado = FunctionsUtils.conveteEmArquivoInstaceOf(responseEntityFE);
-            //TODO: verificar a estrutura de retorno do json e testar a converção
-//        {"identificador":"20182SI0028_190-19T2019","titulo":"ide arquivo ","fileName":"da37c20ba46a5f96b1faa2200bb53a8c.pdf"}
+            ResponseEntity<?> responseEntity = fileServerProxy.uploadArquivo(file, identificador, titulo);
+            System.out.println("---> RESPONSE_ENTITY STATUS CODE: " + responseEntity.getStatusCode());
+
+            Arquivo arquivoArmazenado = FunctionsUtils.conveteEmArquivoInstaceOf(responseEntity);
+
             return arquivoArmazenado;
 
 

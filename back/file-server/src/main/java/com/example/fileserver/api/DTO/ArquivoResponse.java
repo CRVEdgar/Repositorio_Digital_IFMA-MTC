@@ -2,8 +2,8 @@ package com.example.fileserver.api.DTO;
 
 import java.io.Serializable;
 
-public class ArquivoResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ArquivoResponse /*implements Serializable*/ {
+//    private static final long serialVersionUID = 1L;
     
     private String identificador;
     private String titulo;

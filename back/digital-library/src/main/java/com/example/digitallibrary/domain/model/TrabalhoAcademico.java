@@ -16,7 +16,7 @@ public class TrabalhoAcademico {
 
     @Column(name = "titulo", length = 100)
     private String titulo;
-    @Column(name = "resumo", nullable = false)
+    @Column(name = "resumo", nullable = false, columnDefinition = "TEXT")
     private String resumo;
 //    @ElementCollection(fetch = FetchType.LAZY)
 //    @CollectionTable(name = "palavrasChave")

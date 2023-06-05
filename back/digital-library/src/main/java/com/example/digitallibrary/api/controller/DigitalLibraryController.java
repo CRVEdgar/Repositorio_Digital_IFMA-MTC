@@ -28,17 +28,15 @@ public class DigitalLibraryController {
     public ResponseEntity<?> salvarTESTE(@RequestParam("file") MultipartFile file,
                                          @RequestParam(value = "codAluno") String codAluno,
                                          @RequestParam(value = "codProfessor") String codProfessor){
-        TrabalhoRequest trabalhoRequest = new TrabalhoRequest("Titulo 1", "Tecnologia, Ciencia de Dados, Inteligencia Artificial",
-                "Resumo qualuer", "repositorio, framework, spring boot, react", 2023, codAluno, codProfessor);
+        TrabalhoRequest trabalhoRequest = new TrabalhoRequest("Ocupação dos Manguezais Ludovicenses", "Biologia, Ecossistema, Saude, Animal, Vegetal, Natureza",
+                "O manguezal é considerado um ecossistema costeiro de transição entre os ambientes terrestre e marinho. Característico de regiões tropicais e subtropicais, está sujeito ao regime das marés, dominado por espécies vegetais típicas, às quais se associam a outros componentes vegetais e animais.",
+                "manguezal, bioma, berçário, mangue", 2013, codAluno, codProfessor);
 //        TrabalhoRequest(String titulo, String area, String resumo, String palavrasChave, int anoPublicacao, String codAutor, String codOrientador)
 
         try{
             if (file.isEmpty()) {
                 throw new DomainException("Erro: arquivo vazio!");
             }
-
-//            copyToFileSystemTmp(file);
-
 
 
             return new ResponseEntity<>(
@@ -69,43 +67,6 @@ public class DigitalLibraryController {
     @Operation(summary = "Busca um trabalho academico por ano")
     @GetMapping(value = "/ano/{ano}")
     public ResponseEntity<?> buscarPorAno(@PathVariable/*("ano")*/ int ano){
-//        System.out.println("RECEBEU A REQUISIÇÃO");
-//        List<TrabalhoAcademicoResponse> lista = new ArrayList<>();
-//
-//        TrabalhoAcademicoResponse t1 = new TrabalhoAcademicoResponse("123456")
-//                .andAno(2022)
-//                .andArea(Area.MATEMATICA.getArea())
-//                .andTitulo("TITULO TRBALHO 1")
-//                .andResumo(" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
-//                .thatsAll();
-//
-//        TrabalhoAcademicoResponse t2 = new TrabalhoAcademicoResponse("123456")
-//                .andAno(2023)
-//                .andArea(Area.COMPUTAÇÃO.getArea())
-//                .andTitulo("segundo trabalho")
-//                .andResumo(" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
-//                .thatsAll();
-//
-//        TrabalhoAcademicoResponse t3 = new TrabalhoAcademicoResponse("123456")
-//                .andAno(2024)
-//                .andArea(Area.EDUCACAO.getArea())
-//                .andTitulo("terceiro trabalho")
-//                .andResumo(" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
-//                .thatsAll();
-//
-//
-//        lista.add(t1);
-//        lista.add(t2);
-//        lista.add(t3);
-//
-//        System.out.println("TAMANHO DA LISTA: " + lista.size());
-//        try{
-//            return new ResponseEntity<>(lista,
-//                    HttpStatus.CREATED
-//            );
-//        }catch (Exception e){
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-//        }
 
         try{
             return new ResponseEntity<>(trabalhoAcademicoService.buscarPorAno(ano),
@@ -118,8 +79,8 @@ public class DigitalLibraryController {
 
     /** Buscar por area*/
     @Operation(summary = "Busca um trabalho academico por area")
-    @GetMapping(value = "/area/{area}")
-    public ResponseEntity<?> buscarPorArea(@PathVariable String area){
+    @GetMapping(value = "/area{area}")
+    public ResponseEntity<?> buscarPorArea(/*@PathVariable*/@RequestParam(value = "area") String area){
         try{
             return new ResponseEntity<>(trabalhoAcademicoService.buscarPorArea(area),
                     HttpStatus.OK

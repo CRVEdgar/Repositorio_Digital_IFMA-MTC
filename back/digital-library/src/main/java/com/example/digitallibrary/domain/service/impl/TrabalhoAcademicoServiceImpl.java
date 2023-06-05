@@ -9,6 +9,7 @@ import com.example.digitallibrary.domain.model.Arquivo;
 import com.example.digitallibrary.domain.model.Membro;
 import com.example.digitallibrary.domain.model.TrabalhoAcademico;
 import com.example.digitallibrary.domain.model.enums.Area;
+import com.example.digitallibrary.domain.model.enums.VinculoType;
 import com.example.digitallibrary.domain.repository.TrabalhoAcademicoRepository;
 import com.example.digitallibrary.domain.service.ArquivoService;
 import com.example.digitallibrary.domain.service.MembroService;
@@ -70,14 +71,15 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
         trabalhoAcademico.setTitulo(trabalhoRequest.getTitulo());
         trabalhoAcademico.setResumo(trabalhoRequest.getResumo());
         trabalhoAcademico.setPalavrasChave(trabalhoRequest.getPalavrasChave());
-//        for (String palavra: trabalhoRequest.getPalavrasChave()){
-//            trabalhoAcademico.addPalavraChave(palavra);
-//        }
         trabalhoAcademico.setAno(trabalhoRequest.getAnoPublicacao());
         trabalhoAcademico.setAutor(autor.getNome());
         trabalhoAcademico.setOrientador(orientador.getNome());
         trabalhoAcademico.setArea( Area.toEnum(trabalhoRequest.getArea()) );
         trabalhoAcademico.setArquivo(arquivoSalvo);
+        Membro autorMembro = new Membro(autor.getCodigo(), autor.getNome(), VinculoType.ALUNO);
+        Membro orientadorMembro = new Membro(orientador.getCodigo(), orientador.getNome(), VinculoType.PROFESSOR);
+        trabalhoAcademico.setMembros(Set.of(autorMembro, orientadorMembro));
+
 
         /** Salvando as informações do Arquivo na base*/
         arquivoService.save(arquivoSalvo);
@@ -108,8 +110,9 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
         List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
 
         Area areaEnum = Area.toEnum(area);
-
-        List<TrabalhoAcademico> trabalhosBD = repository.findByArea( areaEnum.toString() );
+//        System.out.println( "reference: " + areaEnum.getReference());
+//        System.out.println("Area que sera buscada: " + areaEnum.toString() +/* " | reference: " + areaEnum.getReference(),*/ " | desc: " + areaEnum.getArea());
+        List<TrabalhoAcademico> trabalhosBD = repository.findByArea( areaEnum );
 
         for (TrabalhoAcademico trabalhoToDTO : trabalhosBD){
             TrabalhoAcademicoResponse response = toDTO(trabalhoToDTO);
