@@ -12,22 +12,22 @@ spring:
       discovery:
         locator:
           enabled: true
-#      routes:
-#        - id: digital-library
-#          uri: lb://digital-library
-#          predicates:
-#            - Path=/digital-library/**
-#        - id: academy-server
-#          uri: lb://academy-server
-#          predicates:
-#            - Path=/academy-server/**
-#        - id: file-server
-#          uri: lb://file-server
-#          predicates:
-#            - Path=/file-server/**
-#        - id: openapi
-#          uri: lb://api-gateway
-#          predicates:
-#            - Path=/v3/api-docs/**
-#          filters:
-#            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+      routes:
+        - id: digital-library
+          uri: lb://digital-library
+          predicates:
+            - Path=/digital-library/**
+        - id: academy-server
+          uri: lb://academy-server
+          predicates:
+            - Path=/academy-server/**
+        - id: file-server
+          uri: lb://file-server
+          predicates:
+            - Path=/file-server/**
+        - id: openapi
+          uri: lb://api-gateway
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs

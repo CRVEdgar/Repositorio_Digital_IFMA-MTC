@@ -27,7 +27,8 @@ public class OpenApiConfiguration {
 
         definitions.stream().filter(
                         routeDefinition -> routeDefinition.getId()
-                                .matches(".*-service"))
+//                                .matches(".*-server"))
+                                .matches(".*(server|library).*"))
                 .forEach(routeDefinition -> {
                             String name = routeDefinition.getId();
                             config.addGroup(name);
