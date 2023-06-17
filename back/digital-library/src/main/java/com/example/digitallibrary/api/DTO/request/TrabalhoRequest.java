@@ -1,13 +1,10 @@
 package com.example.digitallibrary.api.DTO.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 public class TrabalhoRequest {
 
@@ -18,12 +15,11 @@ public class TrabalhoRequest {
     @NotBlank
     private String resumo;
 
-//    @NotNull
-//    private List<String> palavrasChave = new ArrayList<>();
     @NotBlank
     private String palavrasChave;
     @NotNull
     @PositiveOrZero
+    @JsonProperty("data")
     private int anoPublicacao;
     @NotBlank
     private String codAutor;
@@ -58,9 +54,7 @@ public class TrabalhoRequest {
     public String getPalavrasChave() {
         return palavrasChave;
     }
-//    public List<String> getPalavrasChave() {
-//        return palavrasChave;
-//    }
+
 
     public int getAnoPublicacao() {
         return anoPublicacao;
@@ -72,5 +66,18 @@ public class TrabalhoRequest {
 
     public String getCodOrientador() {
         return codOrientador;
+    }
+
+    @Override
+    public String toString() {
+        return "TrabalhoRequest{" +
+                "titulo='" + titulo + '\'' +
+                ", area='" + area + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", palavrasChave='" + palavrasChave + '\'' +
+                ", anoPublicacao=" + anoPublicacao +
+                ", codAutor='" + codAutor + '\'' +
+                ", codOrientador='" + codOrientador + '\'' +
+                '}';
     }
 }

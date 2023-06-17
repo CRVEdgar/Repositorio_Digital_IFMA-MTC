@@ -42,4 +42,14 @@ public enum Area {
         }
         throw new DomainException("DESCRIÇÃO DA AREA DO TRABALHO INVALIDA");
     }
+
+    public static Area toEnumByReference(String area){
+        System.out.println("Area buscada: " + area);
+        for (Area tipo: Area.values()){
+            if(area.equalsIgnoreCase(tipo.reference)){
+                return tipo;
+            }
+        }
+        throw new DomainException("DESCRIÇÃO DA AREA DO TRABALHO INVALIDA");
+    }
 }

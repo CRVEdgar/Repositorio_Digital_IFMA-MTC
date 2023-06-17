@@ -13,6 +13,7 @@ public class TrabalhoAcademicoResponse {
     private String resumo;
     private String area;
     private int ano;
+    private String palavrasChave;
 
 
     public TrabalhoAcademicoResponse(String identificador) {
@@ -59,8 +60,13 @@ public class TrabalhoAcademicoResponse {
         return this;
     }
 
+    public TrabalhoAcademicoResponse andPalavrasChave(String palavrasChave) {
+        this.palavrasChave = palavrasChave;
+        return this;
+    }
+
     public TrabalhoAcademicoResponse(String identificador, String codAutor, String nomeAutor, String codOrientador,
-                                     String nomeOrientador, String titulo, String resumo, String area, int ano) {
+                                     String nomeOrientador, String titulo, String resumo, String area, int ano, String palavrasChave) {
         this.identificador = identificador;
         this.codAutor = codAutor;
         this.nomeAutor = nomeAutor;
@@ -70,12 +76,14 @@ public class TrabalhoAcademicoResponse {
         this.resumo = resumo;
         this.area = area;
         this.ano = ano;
+        this.palavrasChave = palavrasChave;
+
     }
 
     /** return Object from Domain Model */
     public TrabalhoAcademicoResponse thatsAll() {
         return new TrabalhoAcademicoResponse(identificador, codAutor, nomeAutor, codOrientador, nomeOrientador,
-                titulo, resumo, area, ano);
+                titulo, resumo, area, ano, palavrasChave);
     }
 
     public String getIdentificador() {
@@ -112,5 +120,9 @@ public class TrabalhoAcademicoResponse {
 
     public int getAno() {
         return ano;
+    }
+
+    public String getPalavrasChave() {
+        return palavrasChave;
     }
 }

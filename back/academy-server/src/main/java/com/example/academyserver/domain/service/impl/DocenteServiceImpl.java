@@ -1,15 +1,12 @@
 package com.example.academyserver.domain.service.impl;
 
 import com.example.academyserver.domain.exceptions.DocenteNaoEncontradoException;
-import com.example.academyserver.domain.exceptions.ServiceException;
 import com.example.academyserver.domain.model.Docente;
-import com.example.academyserver.domain.model.enums.Curso;
 import com.example.academyserver.domain.model.enums.Departamento;
 import com.example.academyserver.domain.repository.DocenteRepository;
 import com.example.academyserver.domain.service.DocenteService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -12,7 +12,7 @@ public class ApiGatewayConfiguration {
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
 
         return builder.routes()
-//                .route(p -> p.path("/get")//Todo: MODIFICAR PARA get
+//                .route(p -> p.path("/get")//
 //                        .and().method("POST", "PUT", "GET", "OPTIONS", "DELETE", "PATCH")
 //                        .uri("http://httpbin.org:80"))
                 .route(p -> p.path("/digital-library/**")

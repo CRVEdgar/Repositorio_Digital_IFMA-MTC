@@ -1,6 +1,7 @@
 package com.example.digitallibrary.core.util;
 
 import com.example.digitallibrary.api.DTO.request.ArquivoRequest;
+import com.example.digitallibrary.api.DTO.request.TrabalhoRequest;
 import com.example.digitallibrary.core.exceptions.DomainException;
 import com.example.digitallibrary.domain.model.Arquivo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,21 +11,6 @@ import org.springframework.http.ResponseEntity;
 
 public class FunctionsUtils {
 
-    public static Arquivo conveteEmArquivo(ResponseEntity<?> responseEntity) {
-        Object responseBody = responseEntity.getBody();
-
-        if (responseBody instanceof Arquivo) {
-            return (Arquivo) responseBody;
-        } else {
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                return objectMapper.readValue(responseEntity.getBody().toString(), Arquivo.class);
-            } catch (JsonProcessingException e) {
-                throw new DomainException("ERRO AO DESSERIALIZAR ARQUIVO");
-            }
-        }
-    }
 
     public static Arquivo conveteEmArquivo2(ResponseEntity<?> responseEntity) {
         Arquivo arquivo = new Arquivo();

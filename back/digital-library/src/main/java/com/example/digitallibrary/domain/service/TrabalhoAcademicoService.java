@@ -14,6 +14,7 @@ public interface TrabalhoAcademicoService {
     TrabalhoAcademicoResponse salvar(TrabalhoRequest trabalhoRequest, MultipartFile file) throws DomainException;
 
     List<TrabalhoAcademicoResponse> buscarPorAno(int ano) throws DomainException;
+    TrabalhoAcademicoResponse buscarPeloIdentificador(String identificador) throws DomainException;
 
     List<TrabalhoAcademicoResponse> buscarPorArea(String area) throws DomainException;
 

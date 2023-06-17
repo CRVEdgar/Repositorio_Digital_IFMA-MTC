@@ -14,7 +14,7 @@ public class TrabalhoAcademico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "titulo", length = 100)
+    @Column(name = "titulo", length = 500)
     private String titulo;
     @Column(name = "resumo", nullable = false, columnDefinition = "TEXT")
     private String resumo;

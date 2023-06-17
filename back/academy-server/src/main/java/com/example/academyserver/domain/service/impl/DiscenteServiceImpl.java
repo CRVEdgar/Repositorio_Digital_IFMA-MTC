@@ -3,7 +3,6 @@ package com.example.academyserver.domain.service.impl;
 import com.example.academyserver.domain.exceptions.DiscenteNaoEncontradoException;
 import com.example.academyserver.domain.model.Discente;
 import com.example.academyserver.domain.model.enums.Curso;
-import com.example.academyserver.domain.model.enums.Departamento;
 import com.example.academyserver.domain.repository.DiscenteRepository;
 import com.example.academyserver.domain.service.DiscenteService;
 import org.springframework.stereotype.Service;

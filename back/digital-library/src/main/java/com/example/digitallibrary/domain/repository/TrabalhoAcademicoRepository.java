@@ -15,4 +15,6 @@ public interface TrabalhoAcademicoRepository  extends CustomJpaRepository<Trabal
 
     List<TrabalhoAcademico> findByArea(Area area);
 
+    TrabalhoAcademico findByArquivo_Identificador(String identificador);
+
 }

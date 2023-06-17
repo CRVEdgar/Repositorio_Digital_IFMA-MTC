@@ -17,7 +17,7 @@ public class Membro {
 //    private Long id;
     @Column(length = 32, nullable = false)
     private String codigo;
-    @Column(length = 32, nullable = false)
+    @Column(length = 100, nullable = false)
     private String nome;
     @Enumerated(EnumType.STRING)
     private VinculoType vinculoType;

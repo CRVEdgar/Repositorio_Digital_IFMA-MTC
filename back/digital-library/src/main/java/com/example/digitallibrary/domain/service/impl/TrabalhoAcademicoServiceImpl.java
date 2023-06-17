@@ -74,7 +74,8 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
         trabalhoAcademico.setAno(trabalhoRequest.getAnoPublicacao());
         trabalhoAcademico.setAutor(autor.getNome());
         trabalhoAcademico.setOrientador(orientador.getNome());
-        trabalhoAcademico.setArea( Area.toEnum(trabalhoRequest.getArea()) );
+//        trabalhoAcademico.setArea( Area.toEnum(trabalhoRequest.getArea()) );
+        trabalhoAcademico.setArea( Area.toEnumByReference(trabalhoRequest.getArea()) );
         trabalhoAcademico.setArquivo(arquivoSalvo);
         Membro autorMembro = new Membro(autor.getCodigo(), autor.getNome(), VinculoType.ALUNO);
         Membro orientadorMembro = new Membro(orientador.getCodigo(), orientador.getNome(), VinculoType.PROFESSOR);
@@ -106,12 +107,22 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
     }
 
     @Override
+    public TrabalhoAcademicoResponse buscarPeloIdentificador(String identificador) throws DomainException {
+
+        TrabalhoAcademico trabalhosBD = repository.findByArquivo_Identificador(identificador);
+
+        TrabalhoAcademicoResponse response = toDTO(trabalhosBD);
+
+        return response;
+    }
+
+    @Override
     public List<TrabalhoAcademicoResponse> buscarPorArea(String area) throws DomainException {
         List<TrabalhoAcademicoResponse> listaTrabalhos = new ArrayList<>();
 
-        Area areaEnum = Area.toEnum(area);
-//        System.out.println( "reference: " + areaEnum.getReference());
-//        System.out.println("Area que sera buscada: " + areaEnum.toString() +/* " | reference: " + areaEnum.getReference(),*/ " | desc: " + areaEnum.getArea());
+//        Area areaEnum = Area.toEnum(area);
+        Area areaEnum = Area.toEnumByReference(area);
+
         List<TrabalhoAcademico> trabalhosBD = repository.findByArea( areaEnum );
 
         for (TrabalhoAcademico trabalhoToDTO : trabalhosBD){
@@ -161,6 +172,7 @@ public class TrabalhoAcademicoServiceImpl implements TrabalhoAcademicoService {
                 .andResumo(trabalhoDomain.getResumo())
                 .andArea(trabalhoDomain.getArea().getArea())
                 .andAno(trabalhoDomain.getAno())
+                .andPalavrasChave(trabalhoDomain.getPalavrasChave())
                 .thatsAll();
         return response;
     }

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Tag(name = "file-server Endpoint") //LOCAL DE ACESSO - localhost:8200/swagger-ui.html
 @RestController
 @RequestMapping(value = "file-server")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FileServerController {
 
     private final ArquivoService arquivoService;

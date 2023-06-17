@@ -14,6 +14,7 @@ import java.util.List;
 @Tag(name = "academy-server Endpoint") //LOCAL DE ACESSO - localhost:8100/swagger-ui.html
 @RestController
 @RequestMapping(value = "academy-server")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AcademyServerController {
 
     private final DiscenteService discenteService;
@@ -27,9 +28,16 @@ public class AcademyServerController {
     @Operation(summary = "busca um Discente pelo codigo")
     @GetMapping(value = "/aluno/codigo{codigoAluno}")
     @ResponseStatus(HttpStatus.OK)
-    public Discente buscarAlunoCod(/*@PathVariable("codigo") String codigoAluno*/@RequestParam(value = "codigoAluno") String codigoAluno){
+    public Discente buscarAlunoCod(@RequestParam(value = "codigoAluno") String codigoAluno){
 
        return discenteService.findByCodigo(codigoAluno);
+    }
+
+    @GetMapping(value = "/aluno/codigoAluno/{codigoAluno}")
+    @ResponseStatus(HttpStatus.OK)
+    public Discente buscarAlunoCodPath(@PathVariable String codigoAluno){
+        System.out.println("Buscando aluno de codigo: " + codigoAluno);
+        return discenteService.findByCodigo(codigoAluno);
     }
 
     @Operation(summary = "busca um Discente pelo nome")
@@ -58,7 +66,7 @@ public class AcademyServerController {
     @Operation(summary = "busca um Docente pelo codigo")
     @GetMapping(value = "/professor/codigo{codigoProfessor}")
     @ResponseStatus(HttpStatus.OK)
-    public Docente buscarProfessorCod(/*@PathVariable("codigo")*/@RequestParam(value = "codigoProfessor") String codigoProfessor){
+    public Docente buscarProfessorCod(@RequestParam(value = "codigoProfessor") String codigoProfessor){
 
         return docenteService.findByCodigo(codigoProfessor);
     }
